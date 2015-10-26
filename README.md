@@ -45,10 +45,10 @@ This is not a hard or complicated process, but it requires multiple steps and th
     In the terminal, navigate to the directory you just unpacked. Type "make dumb" and wait for it to finish. You should now have a file named "dfrotz" that wasn't there before. Copy it to your previously made terps folder.
 
   - **GLULXE:** Download glulxe source.
-    [https://github.com/erkyrath/glulxe]
+    https://github.com/erkyrath/glulxe
 
   - **FROBTADS:** Download frobtads source.
-    [https://github.com/realnc/frobtads](frobtads on github)
+    https://github.com/realnc/frobtads
 
 4. Choose a game that's playable by at least one of the interpreters you've compiled. In this case, I'm going to assume you've grabbed [9:05 by Adam Cadre](http://ifdb.tads.org/viewgame?id=qzftg3j8nh5f34i2) from the [ifdb.tads.org](ifdb). Unzip it, and drop the 905.z5 file into the "games/frotz" folder.
 
