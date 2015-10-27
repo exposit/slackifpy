@@ -66,6 +66,6 @@ This is not a hard or complicated process, but it requires multiple steps and th
  
     - Go to https://api.slack.com/web and create a user token. Then go to https://api.slack.com/methods/channels.list and use the tester to generate a list of all of your server's channels. Pick the channel you want your ifbot to listen and respond on and enter it in the channel variable in slackif.py. You can now deauthorize the user token if you wish.
 
-8. Run slackif.py. In the terminal of your VM, in the slackifpy folder, enter "./slackif.py". The bot should report in. In Slack, go to the designated channel and type in "@ifbot list". You should see a list of all games installed. Use "@ifbot help" in your interactive fiction channel to get help. Remember if you have debug set to True that all output will be in the terminal, not Slack.
+8. Run slackif.py. In a Debian VM, navigate to the slackifpy folder, then type "python slackif.py". The bot should report in. In Slack, go to the designated channel and type in "@ifbot list". You should see a list of all games installed. Use "@ifbot help" in your interactive fiction channel to get help. Remember if you have debug set to True that all output will be in the terminal, not Slack.
 
 9. If everything works as expected, you're good to go. If the script chokes, read the error messages and address them. If you get a "file not found" issue on launch, check your path variables -- they may need to be more explicit. Run a few tests, then when you're comfortable with how it works, set "debug" to False and restart slackifpy.
