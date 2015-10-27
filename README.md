@@ -10,7 +10,7 @@ It requires Python and an internet connection but does not require a web server 
 
 #### IF You Know What You Are Doing
 
-Download the repo. I suggest using a VM running linux as host. Install slack client for python. Download the games you want to play and compile the appropriate interpreter(s) with glk. Update gamedb.py with game info. Change the configuration options in the main script as the comments direct, using your channel id and your bot or your user slack token.
+Download the repo. I suggest using a VM running linux as host. Install slack client for python. Download the games you want to play. Get the source for and compile the appropriate interpreter(s) with glk. Update gamedb.py with game info. Change the configuration options in the main script as the comments direct, using your channel id and your bot or user slack token. The bot wil report in once it is active; use "@ifbot help" in Slack to get a list of commands.
 
 #### Step By Step
 
@@ -34,25 +34,30 @@ This is not a hard or complicated process, but it requires multiple steps and th
 
   You don't need all the interpreters, just the ones that handle the games you want to run. For the purposes of this walkthrough, it's assumed you will set up frotz until it runs successfully, then come back and do the other interpreters.
 
-  If any of these steps fail at any point, you're probably missing dependencies. Read the error message and google it.
-
-  **IMPORTANT**: You need to compile from the operating system you will ultimately use to run slackifpy. So if you are using a Debian VM, you would use the Debian terminal to do the rest of this step. The interpreters you compile won't work if you compile them on, say, Mac, but want to run them inside your virtual Debian box. 
+  **IMPORTANT**: You need to compile from the operating system you will ultimately use to run slackifpy. So if you are using a Debian VM, you would use the Debian terminal to do the rest of this step. If any of these steps fail at any point, you're probably missing dependencies. Read the error message and google it.
+  
+  In Debian using LXDE, if you use the file manager, you can hit F4 to open a terminal in the current file folder. Otherwise, you'll need to use "cd" and "ls" to navigate. Every interpreter has notes and install instructions -- the steps I list here worked for me but there are a lot of variables.
  
-    - **FROTZ:** Download frotz source. You ultimately want to compile "dfrotz", which outputs text to the terminal instead of to a fancy window.
-        
-        https://github.com/DavidGriffith/frotz
+    - **FROTZ:** You ultimately want to compile "dfrotz", which outputs text to the terminal instead of to a fancy window. First, grab the zip from github. Unpack the zip. Anywhere is fine, but the Downloads folder works. Open a terminal in the frotz-master directory you just unpacked. Type "make dumb" and wait for it to finish. You should now have a file named "dfrotz" that wasn't there before. Copy it to the "terps" subfolder.
+    
+      https://github.com/DavidGriffith/frotz
 
-        First, grab the zip from github. Unpack the zip. Anywhere is fine, but the Downloads folder works. In the terminal, navigate to the directory you just unpacked (some systems allow you to right click or use a shortcut key to open a terminal window in a folder from the file manager). Type "make dumb" and wait for it to finish. You should now have a file named "dfrotz" that wasn't there before. Copy it to the "terps" subfolder.
+  - **GLULXE:** We will be compiling glulxe with cheapglk. So download both. Rename cheapglk-master to cheapglk if needed. Run "./make" in the cheapglk folder and then again in the glulxe folder.
 
-  - **GLULXE:** Download glulxe source. TODO tutorial
     https://github.com/erkyrath/glulxe
+    https://github.com/erkyrath/cheapglk
 
-  - **FROBTADS:** Download frobtads source. TODO tutorial
+  - **FROBTADS:** This one can be tricky because of dependencies. Go to the FrobTads directory and open a terminal. At the terminal, type "./bootstrap", then "./configure", and "make". Be prepared for it to take awhile.
+   
     https://github.com/realnc/frobtads
 
-4. Download a game that's playable by at least one of the interpreters you've compiled. In this case, I'm going to assume you've grabbed [9:05 by Adam Cadre](http://ifdb.tads.org/viewgame?id=qzftg3j8nh5f34i2) from the [ifdb.tads.org](ifdb). Unzip it, and drop the 905.z5 file into the "games" subfolder.
+    If you are missing autotools on Debian, you can try installing them:
+    
+    apt-get install build-essential g++ automake autoconf gnu-standards autoconf-doc libtool gettext autoconf-archive
+    
+4. Download a game that's playable by at least one of the interpreters you've compiled. The sample gamedb assumes you've grabbed [9:05 by Adam Cadre](http://ifdb.tads.org/viewgame?id=qzftg3j8nh5f34i2) from the [ifdb.tads.org](ifdb). Unzip it, and drop the 905.z5 file into the "games" subfolder.
 
-5. Open gamedb.py in a text editor. It's already set up for 905 and dfrotz. But you can add more games if you'd like. Sample frobTADs and Glulxe game definitions are included for reference.
+5. Open gamedb.py in a text editor. It's already set up for 905 and dfrotz. But you can add more games if you'd like. Sample frobTADs and Glulxe game definitions are included for reference. **NOTE:** Case matters.
 
   **NOTE:** If you are using frobTads, be sure to put "-i plain" in place of "None" in the arguments field for each TADs game in gamedb.py.
 
