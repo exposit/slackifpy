@@ -13,18 +13,19 @@ import gamedb
 # set to false to go live, ie, messages will be passed to slack.
 debug = True
 
-# to post as user, create a token on slack (https://api.slack.com/#auth)
-#token = ""
-
-# to post as bot, use bot's auth token
+# to post as bot, use bot's authorization token
 # create a bot integration and follow the instructions on the slack website
 token = ""
+
+# to post as user, create a token on slack (https://api.slack.com/#auth)
+# leave this commented out unless you absolutely want to post as a user not a bot for some reason
+#token = ""
 
 #set channel id for the bot to post in
 channel = ""
 
-#set the ifbot's id so it can respond properly. Note this uses <>.
-ifbotid = "<>"
+#set the ifbot's id so it can respond properly..
+ifbotid = ""
 
 # set paths
 game_path = "./games/"
@@ -165,7 +166,7 @@ def check_for_input(gam):
                 if elem["type"] == "message" and elem["channel"] == channel:
                     if elem["text"].startswith("!"):
                         return elem["text"]
-                    elif elem["text"].startswith(ifbotid):
+                    elif elem["text"].startswith("<@" + ifbotid + ">"):
                         answer = ask_ifbot(elem["text"], gam)
                         if not answer in game_list.keys():
                             if not debug:
