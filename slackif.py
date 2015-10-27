@@ -152,8 +152,8 @@ def printout(q):
         if not debug:
             sc.rtm_send_message(channel, send_msg)
             time.sleep(1)
-        else:
-            print('FROM GAME:\n%s' % send_msg)
+        
+        print('[GAME]:\n%s' % send_msg)
     
 # check for input from slack to the program
 def check_for_input(gam):
@@ -192,9 +192,12 @@ def start_game(game_index):
     if game_data["args"] != "None":
         arguments = game_data["args"].split(" ")
     
-    sc.rtm_send_message(channel, start_msg)
-    time.sleep(2)
-
+    if not debug:
+        sc.rtm_send_message(channel, start_msg)
+        time.sleep(2)
+    
+    print('\n[Status] ' + start_msg)
+        
     curr_terp = terp_path + interpreter
     curr_game = game_path + game_file
     
@@ -222,10 +225,7 @@ def start_game(game_index):
         if command:
             command = command[1:]
             command = (command + '\n').encode(encoding)
-            if not debug:
-                gam.stdin.write(command)  
-            else:
-                print("\nCommand: %s" % command)
+            gam.stdin.write(command)  
                             
         # put in a pause here to avoid sucking down all content super fast
         time.sleep(.5)
@@ -248,6 +248,8 @@ def start_game(game_index):
     if not debug:
         sc.rtm_send_message(channel, ready_post_msg)
         time.sleep(1)
+        
+    print('\n[Status] ' + ready_post_msg)
     
     holding_loop()
 
@@ -272,12 +274,14 @@ def holding_loop():
 sc = SlackClient(token)
 if sc.rtm_connect():
 
-    sc.rtm_send_message(channel, ready_pre_msg)
-    time.sleep(1)
-
+    if not debug:
+        sc.rtm_send_message(channel, ready_pre_msg)
+        time.sleep(1)
+    print('\n[Status] ' + ready_pre_msg)
+    
     holding_loop()
     
-    print('\n[Status] "Closing slackifpy from main routine."')
+    print('\n[Status] Closing slackifpy from main routine.')
     
     sc.rtm_send_message(channel, shutting_down_main_msg)
     time.sleep(1)
