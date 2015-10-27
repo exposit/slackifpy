@@ -4,25 +4,27 @@
 
 This (slackifpy) is a python script that interfaces between Slack and an interactive fiction interpreter. This allows you to play parser-based interactive fiction games in a Slack channel with anyone else who is a member of that channel.
 
-It requires Python and an internet connection but does not require a web server. If you want to run it 24/7 as a bot you will need a computer that is on and connected to the internet 24/7, of course.
+It requires Python and an internet connection but does not require a web server (it uses RTM, not webhooks).
+
+**IMPORTANT Use this script at your own risk. I strongly advise using a VM. And not leaving the bot running 24/7 if you're not comfortable with whatever shenanigans your users might get up to.**
 
 #### IF You Know What You Are Doing
 
-Download the script, read it. I suggest using a VM running linux. Download the games you want to play and compile the appropriate interpreter(s) with glk. Update gamedb.py with game info. Change the configuration options in the main script as the comments direct, using your channel id and your bot or your user slack token.
+Download the repo. I suggest using a VM running linux as host. Install slack client for python. Download the games you want to play and compile the appropriate interpreter(s) with glk. Update gamedb.py with game info. Change the configuration options in the main script as the comments direct, using your channel id and your bot or your user slack token.
 
 #### Step By Step
 
 This is not a hard or complicated process, but it requires multiple steps and there's potential for confusion at nearly every one of them. Treat each step as a separate task that might require extensive googling. Don't be afraid to google for tutorials or error messages at each step.
 
-0. Set up a virtual machine with linux, preferably Debian (since that's what I used), using [VirtualBox Manager](https://www.virtualbox.org/wiki/Downloads). This creates a small operating system (the "guest") running inside yours (the "host"); if you screw things up (or someone figures out how to use your bot to make your BIOS explode) you just need to make a new VM to start over.
+0. Set up a virtual machine with linux, preferably Debian (since that's what I used), using [VirtualBox Manager](https://www.virtualbox.org/wiki/Downloads). This creates a small operating system (the "guest") running inside yours (the "host"); if you screw things up (or someone figures out how to use your bot to make your BIOS explode) you hopefully will just need to make a new VM to start over.
 
   https://ryantrotz.com/2011/11/virtualbox-beginner-tutorial/
 
-  If you choose Debian, choose "graphical install" and pick "lxde" as your interface (unless you have another preference). Be sure to check the box to include the system tools.
+  If you choose Debian, for ease of use, choose "graphical install" and pick "lxde" as your interface (unless you have another preference). Be sure to check the box to include the system tools.
 
   Once you're booted up, set up VM's Guest Additions and mount a shared directory with your host system so you can easily pass files back and forth.
 
-1. Download and extract the slackifpy zip. NOTE: The folder structure is pretty arbitrary and easily changed in slackif.py, but I suggest leaving it for now and changing it if you intend to after you've got a sample game up and running.
+1. Download and extract the slackifpy zip. NOTE: The folder structure is pretty arbitrary and easily changed, but I suggest leaving it for now and changing it if you intend to after you've got a sample game up and running.
 
 2. Install slack client for python on the system where you will be running slackif.py (either your computer or the VM). You may need to install pip.
 
@@ -36,13 +38,11 @@ This is not a hard or complicated process, but it requires multiple steps and th
 
   **IMPORTANT**: You need to compile from the operating system you will ultimately use to run slackifpy. So if you are using a Debian VM, you would use the Debian terminal to do the rest of this step. The interpreters you compile won't work if you compile them on, say, Mac, but want to run them inside your virtual Debian box. 
  
-    - **FROTZ:** Download frotz source. You ultimately want to compile "dfrotz", which outputs text to the terminal instead of to a fancy window. First, grab the zip from github.
+    - **FROTZ:** Download frotz source. You ultimately want to compile "dfrotz", which outputs text to the terminal instead of to a fancy window.
+        
+        https://github.com/DavidGriffith/frotz
 
-    https://github.com/DavidGriffith/frotz
-
-    Unpack the zip. Anywhere is fine, but the Downloads folder is easiest to find later.
-
-    In the terminal, navigate to the directory you just unpacked. Type "make dumb" and wait for it to finish. You should now have a file named "dfrotz" that wasn't there before. Copy it to your previously made terps folder.
+        First, grab the zip from github. Unpack the zip. Anywhere is fine, but the Downloads folder works. In the terminal, navigate to the directory you just unpacked (some systems allow you to right click or use a shortcut key to open a terminal window in a folder from the file manager). Type "make dumb" and wait for it to finish. You should now have a file named "dfrotz" that wasn't there before. Copy it to the "terps" subfolder.
 
   - **GLULXE:** Download glulxe source. TODO tutorial
     https://github.com/erkyrath/glulxe
@@ -50,22 +50,22 @@ This is not a hard or complicated process, but it requires multiple steps and th
   - **FROBTADS:** Download frobtads source. TODO tutorial
     https://github.com/realnc/frobtads
 
-4. Choose a game that's playable by at least one of the interpreters you've compiled. In this case, I'm going to assume you've grabbed [9:05 by Adam Cadre](http://ifdb.tads.org/viewgame?id=qzftg3j8nh5f34i2) from the [ifdb.tads.org](ifdb). Unzip it, and drop the 905.z5 file into the "games/frotz" folder.
+4. Download a game that's playable by at least one of the interpreters you've compiled. In this case, I'm going to assume you've grabbed [9:05 by Adam Cadre](http://ifdb.tads.org/viewgame?id=qzftg3j8nh5f34i2) from the [ifdb.tads.org](ifdb). Unzip it, and drop the 905.z5 file into the "games" subfolder.
 
-5. Open gamedb.py in a text editor. It's already set up for 905 and dfrotz. But you can add more games if you'd like. 
+5. Open gamedb.py in a text editor. It's already set up for 905 and dfrotz. But you can add more games if you'd like. Sample frobTADs and Glulxe game definitions are included for reference.
 
-  NOTE: If you are using frobTads, be sure to put "-i plain" in place of "None" in the arguments field for each TADs game in gamedb.py.
+  **NOTE:** If you are using frobTads, be sure to put "-i plain" in place of "None" in the arguments field for each TADs game in gamedb.py.
 
 6. Open slackif.py. Set "debug" to True for now, if it isn't already. This redirects all messaging to your terminal instead of sending it to slack (although you still control it through slack by directing commands at @ifbot). Change the paths variables to reflect your own path, using your dfrotz as a guide. You may need to specify paths.
 
-7. Set up your Slack to work with slackif.py and slackif.py to work with your Slack. The following assumes you want to run an open channel and control things via ifbot. It should be very easy to modify for private groups (change the channel id and invite the bot) or for DM (use your user token instead of a bot token and change the trigger keyword) but I haven't tested this.
+7. Set up your Slack to work with slackif.py and slackif.py to work with your Slack. The following assumes you want to run an open channel and control things via ifbot. It should be easy to modify for private groups (change the channel id and invite the bot) or for DM (use your user token instead of a bot token and change the trigger keyword) but I haven't tested this.
 
     - Make a dedicated channel for your ifbot to operate in. Ours is called "xintfiction" so it ends up at the bottom of the channel list.
 
-    - Go to slack integrations and create a bot integration for your team. You can name it whatever you want -- I use 'ifbot'. Copy the bot's token into the token variable in slackif.py. Either add the ifbot to your interactive fiction channel while creating it or invite it from your Slack with /invite. 
+    - Go to slack integrations and create a bot integration for your team. You can name it whatever you want -- I use 'ifbot'. Copy the bot's token into the token variable for a bot in slackif.py. Either add the ifbot to your interactive fiction channel while creating it or invite it within your Slack with /invite. 
  
     - Go to https://api.slack.com/web and create a user token. Then go to https://api.slack.com/methods/channels.list and use the tester to generate a list of all of your server's channels. Pick the channel you want your ifbot to listen and respond on and enter it in the channel variable in slackif.py. You can now deauthorize the user token if you wish.
 
-8. Run slackif.py. In the terminal of your VM, in the slackifpy folder, enter "./slackif.py". The bot should report in. In Slack, go to the designated channel and type in "@ifbot list". You should see a list of all games installed in your terminal. Use "@ifbot help" to get help.
+8. Run slackif.py. In the terminal of your VM, in the slackifpy folder, enter "./slackif.py". The bot should report in. In Slack, go to the designated channel and type in "@ifbot list". You should see a list of all games installed. Use "@ifbot help" in your interactive fiction channel to get help. Remember if you have debug set to True that all output will be in the terminal, not Slack.
 
-9. If everything works as expected, you're good to go. If the script chokes, read the error messages and address them. If you get a "file not found" issue on launch, check your path variables. Run a few tests, then when you're comfortable with how it works, set "debug" to False and restart slackifpy.
+9. If everything works as expected, you're good to go. If the script chokes, read the error messages and address them. If you get a "file not found" issue on launch, check your path variables -- they may need to be more explicit. Run a few tests, then when you're comfortable with how it works, set "debug" to False and restart slackifpy.
