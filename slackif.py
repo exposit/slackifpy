@@ -146,6 +146,12 @@ def printout(q):
         # could add more catches if necessary
         send_msg = send_msg.replace("> >", "")
         
+        # bocfel strip
+        send_msg = send_msg.replace("(B[m>(B[m(B[m[7m(B[m(B[m", "")
+        send_msg = send_msg.replace("(B[m(B[m(B[m", "")
+        send_msg = send_msg.replace("(B[m[1m", "")
+        send_msg = send_msg.replace("(B[m", "")
+        
         if format_code_block:
             send_msg = "```" + send_msg + "```"
 
