@@ -13,13 +13,13 @@ import gamedb
 # set to false to go live, ie, messages will be passed to slack.
 debug = True
 
-# to post as bot, use bot's authorization token
-# create a bot integration and follow the instructions on the slack website
-token = ""
-
 # to post as user, create a token on slack (https://api.slack.com/#auth)
 # leave this commented out unless you absolutely want to post as a user not a bot for some reason
 #token = ""
+
+# to post as bot, use bot's authorization token
+# create a bot integration and follow the instructions on the slack website
+token = ""
 
 #set channel id for the bot to post in
 channel = ""
@@ -145,12 +145,6 @@ def printout(q):
         # format messaging to strip out some parser cruft
         # could add more catches if necessary
         send_msg = send_msg.replace("> >", "")
-        
-        # bocfel strip
-        send_msg = send_msg.replace("(B[m>(B[m(B[m[7m(B[m(B[m", "")
-        send_msg = send_msg.replace("(B[m(B[m(B[m", "")
-        send_msg = send_msg.replace("(B[m[1m", "")
-        send_msg = send_msg.replace("(B[m", "")
         
         if format_code_block:
             send_msg = "```" + send_msg + "```"
