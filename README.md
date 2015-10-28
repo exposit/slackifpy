@@ -37,17 +37,21 @@ This is not a hard or complicated process, but it requires multiple steps and th
   **IMPORTANT**: You need to compile from the operating system you will ultimately use to run slackifpy. So if you are using a Debian VM, you would use the Debian terminal to do the rest of this step. If any of these steps fail at any point, you're probably missing dependencies. Read the error message and google it.
   
   In Debian using LXDE, if you use the file manager, you can hit F4 to open a terminal in the current file folder. Otherwise, you'll need to use "cd" and "ls" to navigate. Every interpreter has notes and install instructions -- the steps I list here worked for me but there are a lot of variables.
+  
+    - **BOCFEL** Bocfel should cover a pretty wide number of games (including zblorb). To compile, download and unpack the archive. READ THE README. READ THE BUILDING file. Then open a terminal window in the bocfel directory and type "make GLK=" and wait for it to finish. Then copy the new bocfel file to the "terps" subfolder.
+    
+      https://bocfel.codeplex.com/
  
-    - **FROTZ:** You ultimately want to compile "dfrotz", which outputs text to the terminal instead of to a fancy window. First, grab the zip from github. Unpack the zip. Anywhere is fine, but the Downloads folder works. READ THE README. Open a terminal in the frotz-master directory you just unpacked. Type "make dumb" and wait for it to finish. You should now have a file named "dfrotz" that wasn't there before. Copy it to the "terps" subfolder.
+    - **FROTZ:** You ultimately want to compile "dfrotz", which outputs text to the terminal instead of to a fancy window. First, grab the zip from github. Unpack the zip. READ THE README. Open a terminal in the frotz-master directory you just unpacked. Type "make dumb" and wait for it to finish. You should now have a file named "dfrotz" that wasn't there before. Copy it to the "terps" subfolder.
     
       https://github.com/DavidGriffith/frotz
 
-  - **GLULXE:** Compile glulxe with cheapglk; this is the default so it's easy. READ THE README. Download both zips and extract. Rename cheapglk-master to cheapglk. Open cheapglk in the terminal and type "./make", then repeat for the glulxe folder.
+    - **GLULXE:** Compile glulxe with cheapglk; this is the default so it's easy. READ THE README. Download both zips and extract. Rename cheapglk-master to cheapglk. Open cheapglk in the terminal and type "./make", then repeat for the glulxe folder.
 
     https://github.com/erkyrath/glulxe
     https://github.com/erkyrath/cheapglk
 
-  - **FROBTADS:** This one can be tricky because of dependencies. Download the zip and extract. READ THE README. Go to the FrobTads directory and open a terminal. At the terminal, type "./bootstrap", then "./configure", and finally "make". Be prepared for it to take awhile.
+    - **FROBTADS:** This one can be tricky because of dependencies. Download the zip and extract. READ THE README. Go to the FrobTads directory and open a terminal. At the terminal, type "./bootstrap", then "./configure", and finally "make". Be prepared for it to take awhile.
    
     https://github.com/realnc/frobtads
 
