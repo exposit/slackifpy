@@ -38,9 +38,10 @@ This is not a hard or complicated process, but it requires multiple steps and th
   
   In Debian using LXDE, if you use the file manager, you can hit F4 to open a terminal in the current file folder. Otherwise, you'll need to use "cd" and "ls" to navigate. Every interpreter has notes and install instructions -- the steps I list here worked for me but there are a lot of variables.
   
-    - **BOCFEL** Bocfel should cover a pretty wide number of games (including zblorb). To compile, download and unpack the archive. READ THE README. READ THE BUILDING file. Do what they say. Then open a terminal window in the bocfel directory and type "make" and wait for it to finish. Then copy the new bocfel file to the "terps" subfolder.
+    - **BOCFEL** Bocfel should cover a pretty wide number of games (including zblorb). To compile, download and unpack the archive and do the same for cheapglk. READ THE README. READ THE BUILDING FILE (this has an overview on the entire process that can be applied generally to any of the other interpreters). To summarize, set the required settings. Move the cheapglk folder to the bocfel folder and compile it. Then open a terminal window in the bocfel directory and type "make" and wait for it to finish. Then copy the new bocfel file to the "terps" subfolder.
     
       https://bocfel.codeplex.com/
+      https://github.com/erkyrath/cheapglk
  
     - **FROTZ:** You ultimately want to compile "dfrotz", which outputs text to the terminal instead of to a fancy window. First, grab the zip from github. Unpack the zip. READ THE README. Open a terminal in the frotz-master directory you just unpacked. Type "make dumb" and wait for it to finish. You should now have a file named "dfrotz" that wasn't there before. Copy it to the "terps" subfolder.
     
