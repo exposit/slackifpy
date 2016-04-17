@@ -93,9 +93,9 @@ def ask_ifbot(query, game_active):
             target_game = list_of_words[list_of_words.index("detail") + 1]
         if target_game in game_list.keys():
             result = game_list[target_game]
-            title = '*' + result['title'] + " ( " + key + " ) " + '*\n' 
+            title = '*' + result['title'] + " ( " + target_game + " ) " + '*\n' 
             author = '_' + result['author'] + '_\n'
-            genre = curr['genre'] + "\n"
+            genre = result['genre'] + "\n"
             answer = title + author + genre + '"' + result["blurb"] + '"'
         else:
             answer = "I'm sorry, which game was that again? Use _@ifbot list_ to list all available games."
