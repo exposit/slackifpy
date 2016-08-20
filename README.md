@@ -1,5 +1,7 @@
 # slackifpy
 
+Note: I've moved away from Slack and will no longer be able to test this script out (not that I knew what I was doing in the first place, ha). Some help is available at the [original forum thread](http://www.intfiction.org/forum/viewtopic.php?f=7&t=18523&start=0) if you run into issues.
+
 #### What It Is
 
 This (slackifpy) is a python script that interfaces between Slack and an interactive fiction interpreter. This allows you to play parser-based interactive fiction games in a Slack channel with anyone else who is a member of that channel.
